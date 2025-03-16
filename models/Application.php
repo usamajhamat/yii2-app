@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "application".
@@ -17,10 +18,8 @@ use Yii;
  * @property string $created_at
  * @property string $updated_at
  */
-class Application extends \yii\db\ActiveRecord
+class Application extends ActiveRecord
 {
-
-
     /**
      * {@inheritdoc}
      */
@@ -35,13 +34,13 @@ class Application extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['description', 'income', 'number_of_dependants'], 'default', 'value' => null],
             [['first_name', 'last_name', 'date_of_birth'], 'required'],
             [['date_of_birth', 'created_at', 'updated_at'], 'safe'],
             [['description'], 'string'],
             [['income'], 'number'],
-            [['number_of_dependants'], 'integer'],
+            [['number_of_dependants'], 'integer', 'min' => 0],
             [['first_name', 'last_name'], 'string', 'max' => 255],
+            [['description', 'income', 'number_of_dependants'], 'default', 'value' => null],
         ];
     }
 
@@ -54,13 +53,12 @@ class Application extends \yii\db\ActiveRecord
             'id' => 'ID',
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
-            'date_of_birth' => 'Date Of Birth',
+            'date_of_birth' => 'Date of Birth',
             'description' => 'Description',
             'income' => 'Income',
-            'number_of_dependants' => 'Number Of Dependants',
+            'number_of_dependants' => 'Number of Dependants',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
     }
-
 }
